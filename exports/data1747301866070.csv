@@ -1,0 +1,4 @@
+id,user,orders
+"id,user.name,user.contact.email,user.contact.phones[0],user.contact.phones[1],orders[0].id,orders[0].amount,orders[1].id,orders[1].amount
+1,John,john@example.com,123,456,A1,100,B2,150
+"

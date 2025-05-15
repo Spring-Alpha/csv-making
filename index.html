@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Download CSV</title>
+  </head>
+  <body>
+    <button onclick="downloadCSV()">Download CSV</button>
+    <button onclick="downloadCSVNested()">Download CSV Nested</button>
+    <button onclick="downloadCSVComplex()">Download CSV Complex</button>
+
+    <script>
+      async function downloadCSV() {
+        const response = await fetch("http://localhost:8080/api/csv/download", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify([
+            { id: 1, name: "John", email: "john@example.com" },
+            { id: 2, name: "Jane", email: "jane@example.com" },
+          ]),
+        });
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "data.csv";
+        a.click();
+        window.URL.revokeObjectURL(url);
+      }
+
+      async function downloadCSVNested() {
+        const response = await fetch(
+          "http://localhost:8080/convert/json-to-csv/nested",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify([
+              {
+                id: 1,
+                name: "John",
+                contact: {
+                  email: "john@example.com",
+                  phone: "123456789",
+                },
+              },
+              {
+                id: 2,
+                name: "Jane",
+                contact: {
+                  email: "jane@example.com",
+                  phone: "987654321",
+                },
+              },
+            ]),
+          }
+        );
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "data.csv";
+        a.click();
+        window.URL.revokeObjectURL(url);
+      }
+
+      async function downloadCSVComplex() {
+        const response = await fetch(
+          "http://localhost:8080/convert/json-to-csv/complex",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify([
+              {
+                id: 1,
+                user: {
+                  name: "John",
+                  contact: {
+                    email: "john@example.com",
+                    phones: ["123", "456"],
+                  },
+                },
+                orders: [
+                  { id: "A1", amount: 100 },
+                  { id: "B2", amount: 150 },
+                ],
+              },
+            ]),
+          }
+        );
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "data.csv";
+        a.click();
+        window.URL.revokeObjectURL(url);
+      }
+    </script>
+  </body>
+</html>
