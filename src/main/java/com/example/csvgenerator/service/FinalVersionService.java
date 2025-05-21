@@ -1,10 +1,8 @@
 package com.example.csvgenerator.service;
 
 import com.example.csvgenerator.util.ComplexJsonFlattener;
-import com.example.csvgenerator.util.JsonToCsvConverter;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.wnameless.json.flattener.JsonFlattener;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.springframework.stereotype.Service;
